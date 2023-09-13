@@ -258,11 +258,15 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 	p.nextToken()
 
 	for !p.curTokenIs(token.RBRACE) && !p.curTokenIs(token.EOF) {
-		stmt := p.parseStatement()
-		if stmt != nil {
-			block.Statements = append(block.Statements, stmt)
+		if p.curTokenIs(token.SEMICOLON) {
+			p.nextToken()
+		} else {
+			stmt := p.parseStatement()
+			if stmt != nil {
+				block.Statements = append(block.Statements, stmt)
+			}
+			p.nextToken()
 		}
-		p.nextToken()
 	}
 	return block
 }
@@ -302,6 +306,11 @@ func (p *Parser) parseStringLiteral() ast.Expression {
 	return &ast.StringLiteral{Token: p.curToken, Value: p.curToken.Literal}
 }
 
+/*
+	func (p *Parser) parsePrintExpression() ast.Expression {
+		expression := &ast.PrintExpression
+	}
+*/
 func (p *Parser) ParseProgram() *ast.Program {
 	program := &ast.Program{}
 	program.Statements = []ast.Statement{}
@@ -396,10 +405,10 @@ func (p *Parser) parseFunctionStatement() *ast.FunctionStatement {
 	}
 	stmt.Name = &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
 
-	if stmt.Name.Value == "main" {
+	/*if stmt.Name.Value == "main" {
 		stmt.ReturnType = nil
 		stmt.Parameters = nil
-	}
+	}*/
 	if !p.expectPeek(token.LPAREN) {
 		return nil
 	}
