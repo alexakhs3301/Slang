@@ -31,11 +31,28 @@ func Start(in io.Reader, out io.Writer) {
 		}
 		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
-			io.WriteString(out, evaluated.Inspect())
-			io.WriteString(out, "\n")
+			if arr, ok := evaluated.(*object.PrintObject); ok {
+				for _, element := range arr.Elements {
+					switch element := element.(type) {
+					case *object.ReturnVal:
+						io.WriteString(out, element.Value.Inspect()+"\n")
+					case *object.Integer:
+						io.WriteString(out, element.Inspect()+"\n")
+					case *object.String:
+						io.WriteString(out, element.Value+"\n")
+
+					default:
+						io.WriteString(out, element.Inspect())
+					}
+				}
+			}
+
+			//io.WriteString(out, "\n")
+			/*io.WriteString(out, "PROGRAM EXITED WITH CODE 0")*/
 		}
 	}
 }
+
 func printParserErrors(out io.Writer, errors []string) {
 	for _, msg := range errors {
 		io.WriteString(out, "\t"+msg+"\n")

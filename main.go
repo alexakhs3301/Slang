@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-	//input := "var y=3;fn add(x:int){return x+3;}fn main() {return y+add(3);}main();"
 	//repl.Start(os.Stdin, os.Stdout)
 	startTime := time.Now()
 	out := os.Stdout
@@ -36,7 +35,7 @@ func main() {
 	for _, line := range fileLines {
 		input.WriteString(line)
 	}
-	input.WriteString("main();")
+	//input.WriteString("main();")
 	env := object.NewEnvironment()
 	l := lexer.New(input.String())
 	p := parser.New(l)
@@ -49,6 +48,7 @@ func main() {
 		return
 	}
 	evaluated := evaluator.Eval(program, env)
+	evaluated.Inspect()
 	if evaluated.Type() == object.ERROR_OBJ {
 		endTimeWithErrObj := time.Now()
 		timeDiffWithErrObj := endTimeWithErrObj.Sub(startTime)
@@ -63,8 +63,25 @@ func main() {
 	timeDiffWithoutErrors := endTimeWithoutErrors.Sub(startTime)
 	compileTimeCommentWithoutError := fmt.Sprintf("Compilation Time: %d Milliseconds\n", timeDiffWithoutErrors.Milliseconds())
 	if evaluated != nil {
-		io.WriteString(out, compileTimeCommentWithoutError+"\nPretty fast, huh?\n")
-		io.WriteString(out, evaluated.Inspect())
+		io.WriteString(out, compileTimeCommentWithoutError+"Pretty fast, huh?\n")
+
+		if arr, ok := evaluated.(*object.PrintObject); ok {
+			for _, element := range arr.Elements {
+				switch element := element.(type) {
+				case *object.ReturnVal:
+					io.WriteString(out, element.Value.Inspect()+"\n")
+				case *object.Integer:
+					io.WriteString(out, element.Inspect()+"\n")
+				case *object.String:
+					io.WriteString(out, element.Value+"\n")
+
+				default:
+					io.WriteString(out, element.Inspect()+"\n")
+				}
+			}
+
+		}
+
 		io.WriteString(out, "\n")
 		io.WriteString(out, "PROGRAM EXITED WITH CODE 0")
 	}
@@ -77,8 +94,4 @@ func printParserErrors(out io.Writer, errors []string, comment string) {
 		io.WriteString(out, "\t"+msg+"\n")
 	}
 	io.WriteString(out, "PROGRAM EXITED WITH CODE 1")
-}
-func add(x int, y int) int {
-	w := x + y
-	return w
 }

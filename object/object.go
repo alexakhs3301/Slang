@@ -14,6 +14,8 @@ type Object interface {
 	Inspect() string
 }
 
+type BuiltinFunction func(args ...Object) Object
+
 const (
 	INTEGER_OBJ    = "INTEGER"
 	BOOLEAN_OBJ    = "BOOLEAN"
@@ -22,6 +24,9 @@ const (
 	RETURN_VAL_OBJ = "RETURN_VAL"
 	ERROR_OBJ      = "ERROR"
 	FUNCTION_OBJ   = "FUNCTION"
+	BUILTIN_OBJ    = "BUILTIN"
+	ARRAY_OBJ      = "ARRAY"
+	PRINT_OBJ      = "PRINT"
 )
 
 // Integer object
@@ -37,7 +42,13 @@ type Boolean struct {
 	Value bool
 }
 
-func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
+func (b *Boolean) Inspect() string {
+	if b.Value == true {
+		return fmt.Sprintf("truth")
+	} else {
+		return fmt.Sprintf("lie")
+	}
+}
 func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
 
 // Null object
@@ -103,6 +114,55 @@ func (f *Function) Inspect() string {
 	out.WriteString("{\n")
 	out.WriteString(f.Block.String())
 	out.WriteString("\n}")
+
+	return out.String()
+}
+
+type Builtin struct {
+	Fn BuiltinFunction
+}
+
+func (b *Builtin) Type() ObjectType { return BUILTIN_OBJ }
+func (b *Builtin) Inspect() string  { return "builtin function" }
+
+type Array struct {
+	Elements []Object
+}
+
+func (ao *Array) Type() ObjectType { return ARRAY_OBJ }
+func (ao *Array) Inspect() string {
+	var out bytes.Buffer
+
+	var elements []string
+
+	for _, e := range ao.Elements {
+		elements = append(elements, e.Inspect())
+	}
+
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
+
+	return out.String()
+}
+
+type PrintObject struct {
+	Elements []Object
+}
+
+func (po *PrintObject) Type() ObjectType { return PRINT_OBJ }
+func (po *PrintObject) Inspect() string {
+	var out bytes.Buffer
+
+	var elements []string
+
+	for _, e := range po.Elements {
+		elements = append(elements, e.Inspect())
+	}
+
+	out.WriteString("[")
+	out.WriteString(strings.Join(elements, ", "))
+	out.WriteString("]")
 
 	return out.String()
 }

@@ -126,9 +126,11 @@ func (l *Lexer) NextToken() token.Token {
 			tok.Literal = l.readIdentifier()
 			tok.Type = token.LookupIdent(tok.Literal)
 			return tok
-		} else {
-			//treating 's' as a normal identifier(IDENT Token)
-			tok = newToken(token.IDENT, l.ch)
+		}
+		if isLetter(l.ch) {
+			tok.Literal = l.readIdentifier()
+			tok.Type = token.LookupIdent(tok.Literal)
+			return tok
 		}
 
 	case ',':
@@ -145,6 +147,12 @@ func (l *Lexer) NextToken() token.Token {
 
 	case '}':
 		tok = newToken(token.RBRACE, l.ch)
+
+	case '[':
+		tok = newToken(token.LBRACKET, l.ch)
+
+	case ']':
+		tok = newToken(token.RBRACKET, l.ch)
 
 	case 0:
 		tok.Literal = ""
