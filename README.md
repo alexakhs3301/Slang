@@ -1,4 +1,8 @@
 # SLANG
+<p align="center">
+<img src="https://github.com/alexakhs3301/Slang/blob/master/slang_ide_new_logo.png?raw=true" width="200">
+</p>
+
 
 Slang supports functions, various datatypes, operators and statements.
 
@@ -64,6 +68,8 @@ In this version we do not support accessability modifiers (public, private etc);
 | ---- | ----|
 | `first(string)` | Returns the first letter of string |
 | `string + string` | Returns concatenated string |
+| `len(string)` | Returns the length of the string |
+| `atoi(string)` | Converts a string to `int` | 
 
 
 ### Arrays
@@ -75,6 +81,16 @@ In this version we do not support accessability modifiers (public, private etc);
 | `rest(array)` | Returns all values after first element of the array |
 | `push(array, newValue)` | Pushes new value in the last position of the array |
 | `array[index]` | Gets the value of the called index |
+| `randPick(array)` | Returns a random element of the array |
+| `sort(array)` | Sorts the array **Ascanding** only |
+
+
+### System Functions
+---
+| Functions | Description |
+| ---- | ---- |
+| `printer(object)`| Prints any object |
+| `randInt(min:int, max:int)` | Returns a random number between limits |
 
 ## Includes
 
@@ -139,3 +155,33 @@ if (pow(10) > 20) {
 
 // it will print 55
 ```
+
+
+# Upcomming Features
+We do not stop to support our language. Keep up with us to learn first our first upcomming features and updates
+
+## Slang (Interpreter)
+* More **Data Types** like `float` and the support of `struct` and `interface`.
+* New assignable operators like `=`, `+=`, `-=`, `*=`, `/=`, `%=`
+* New comparison operators like `>=` and `<=`
+* Support of loops statements `for`, `while`, `foreach`, `do / while`
+* Support of **DateTimes**
+* Access modifiers like `public`, `private`, `protected`
+* Stack Frame and Debugger
+ 
+## Slang IDE
+* Support Auto Complete
+* Support Intellisence
+* Better knowing which `fn` it has to call.
+* More languages support like `php`, `html`, `css`, `js`
+* Markdown viewer
+* File Comparison
+* Support of extensions and plugin
+* Cross-Platform
+
+# Known Issues
+* Sometimes crashes when we create new project.
+* Editor goes slower.
+* Auto Complete has been disabled because causes issues with included files.
+
+
