@@ -45,14 +45,14 @@ In this version we do not support accessability modifiers (public, private etc);
 | Operator | Name | Description | Example
 | ---- | ---- | ---- | ---- |
 | `&` | Bitwise AND | inary AND Operator copies a bit to the result if it exists in both operands. | Input: 10 & 4 Expected: 0 |
-| `|` | Bitwise OR | Binary OR Operator copies a bit if it exists in either operand. | Input: 1034 \| 4 Expected: 1038 |
+| `\|` | Bitwise OR | Binary OR Operator copies a bit if it exists in either operand. | Input: 1034 \| 4 Expected: 1038 |
 | `#` | Bitwise XOR | Binary XOR Operator copies the bit if it is set in one operand but not both. | Input: 10 # 4 Expected: 14 |
 | `~` | Bitwise NOT | Binary Ones Complement Operator is unary and has the effect of 'flipping' bits. | Input: ~10 Expected: -11 | 
 
 ## Data Types
 
 | Type | Name | Values |
-| ---- | ---- |
+| ---- | ---- | ---- |
 | `int` | Integer| -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
 | `bool` | Boolean | truth, lie |
 | `string` | String | "text" |
