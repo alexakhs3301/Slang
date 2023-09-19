@@ -3,11 +3,11 @@
 <img src="https://github.com/alexakhs3301/Slang/blob/master/slang_ide_new_logo.png?raw=true" width="200">
 </p>
 
+Slang is Go's General Uses Functional Interpreter which can evaluate and print various kind of functions, operators, variables.
 
-Slang supports functions, various datatypes, operators and statements.
 
 ## Functions
-All function should be above of main code. You cannot call function if exists after calling.
+In order to declare a function in Slang you have implement the whole functions above of your main code so that they are known to the **Interpeter**
 
 ```
 fn add(x:int, y:int) : int {
@@ -182,6 +182,5 @@ We do not stop to support our language. Keep up with us to learn first our first
 # Known Issues
 * Sometimes crashes when we create new project.
 * Editor goes slower.
-* Auto Complete has been disabled because causes issues with included files.
 
 
