@@ -42,7 +42,7 @@ func Start(in io.Reader, out io.Writer) {
 						io.WriteString(out, element.Value+"\n")
 
 					default:
-						io.WriteString(out, element.Inspect())
+						io.WriteString(out, element.Inspect()+"\n")
 					}
 				}
 			}

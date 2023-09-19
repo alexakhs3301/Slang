@@ -329,8 +329,8 @@ func evalProgram(program *ast.Program, env *object.Environment) object.Object {
 		case *object.Error:
 			return result
 
-		default:
-			return result
+			/*default:
+			return result*/
 		}
 	}
 
