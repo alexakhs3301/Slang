@@ -158,7 +158,7 @@ if (pow(10) > 20) {
 
 
 # Upcomming Features
-We do not stop to support our language. Keep up with us to learn first our first upcomming features and updates
+We do not stop to support our language. Keep up with us to learn first our upcomming features and updates
 
 ## Slang (Interpreter)
 * More **Data Types** like `float` and the support of `struct` and `interface`.
